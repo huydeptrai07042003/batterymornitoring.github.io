@@ -81,7 +81,6 @@ body {
     backdrop-filter: blur(100px);
 }
 
-
 .chart-wrapper {
     display: flex;
     flex-direction: column;
@@ -106,8 +105,4 @@ canvas {
 .specifications {
     height: fit-content;
     border-radius: 10px;
-}
-
-.warn{
-    color: yellow;
-}
+} 

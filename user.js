@@ -24,9 +24,9 @@ let avaName = document.getElementById('avaName');
 let avaRoom = document.getElementById('avaRoom');
 
 
-let currentUser = JSON.parse(localStorage.getItem('currentUser'))||[];
+let currentUser = JSON.parse(localStorage.getItem('currentUser')) || [];
 
-let database = JSON.parse(localStorage.getItem('database')) || [{"name":"","password":"","floor":"","room":"","email":"","phonenumber":"","reasons":""}];
+let database = JSON.parse(localStorage.getItem('database')) || [{ "name": "", "password": "", "floor": "", "room": "", "email": "", "phonenumber": "", "reasons": "" }];
 
 
 avaName.innerHTML = `<b>${currentUser.name.toUpperCase()}</b>`;
@@ -38,13 +38,13 @@ avaRoom.innerHTML = `<b>Room: ${currentUser.floor.toUpperCase()}${currentUser.ro
 
 
 // button
-function changeBtn(){
-    window.location.href='informationUser.html';
+function changeBtn() {
+    window.location.href = 'informationUser.html';
 }
 
 //log out
-function logout(){
-    window.location.href='index.html';
+function logout() {
+    window.location.href = 'index.html';
 }
 
 // chart 
@@ -109,25 +109,25 @@ let usedPath = '/Room/' + currentUser.floor + currentUser.room + '/used';
 
 
 // Lắng nghe dữ liệu từ Firebase
-databasee.ref(socPath).on("value", function(snapshot) {
+databasee.ref(socPath).on("value", function (snapshot) {
     currentSoC = snapshot.val();
     document.getElementById('socData').innerText = currentSoC;
     warningCheck();
 });
 
-databasee.ref(sohPath).on("value", function(snapshot) {
+databasee.ref(sohPath).on("value", function (snapshot) {
     currentSoH = snapshot.val();
     document.getElementById('sohData').innerText = currentSoH;
     warningCheck();
 });
 
-databasee.ref(tempPath).on("value", function(snapshot) {
+databasee.ref(tempPath).on("value", function (snapshot) {
     currentTemp = snapshot.val();
     document.getElementById('tempData').innerText = currentTemp;
     warningCheck();
 });
 
-databasee.ref(usedPath).on("value", function(snapshot) {
+databasee.ref(usedPath).on("value", function (snapshot) {
     currentUsed = snapshot.val();
     document.getElementById('usedData').innerText = currentUsed;
 });
@@ -203,11 +203,38 @@ setInterval(() => {
 
 
 /////////////////// Kiểm tra ngưỡng
-function warningCheck(){
-if( currentSoC < 30 || currentSoH == 0 || currentTemp>60){
-    document.getElementById('warning').classList.add('warn');
-}
-else{
-    document.getElementById('warning').classList.remove('warn');
-}
+/////////////////// Kiểm tra ngưỡng
+function warningCheck() {
+    const warningSoc = document.getElementById('warning-soc');
+    const warningSoh = document.getElementById('warning-soh');
+    const warningTemp = document.getElementById('warning-temp');
+
+    // Lấy giá trị hiện tại từ các span
+    const currentSoC = parseFloat(document.getElementById('socData').textContent);
+    const currentSoH = parseFloat(document.getElementById('sohData').textContent);
+    const currentTemp = parseFloat(document.getElementById('tempData').textContent);
+
+    // SoC - Cảnh báo khi < 30%
+    if (currentSoC < 30) {
+        warningSoc.style.display = 'inline-block';
+        warningSoc.style.color = 'yellow';
+    } else {
+        warningSoc.style.display = 'none';
+    }
+
+    // SoH - Cảnh báo khi = 0%
+    if (currentSoH === 0) {
+        warningSoh.style.display = 'inline-block';
+        warningSoh.style.color = 'yellow';
+    } else {
+        warningSoh.style.display = 'none';
+    }
+
+    // Temp - Cảnh báo khi > 60°C hoặc <= 0°C
+    if (currentTemp > 60 || currentTemp <= 0) {
+        warningTemp.style.display = 'inline-block';
+        warningTemp.style.color = 'yellow';
+    } else {
+        warningTemp.style.display = 'none';
+    }
 }
