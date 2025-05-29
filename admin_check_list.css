@@ -44,34 +44,26 @@ body {
     z-index: 1;
 }
 
+.button {
+    width: 100px;
+}
+
 .button:hover {
-    background-color: rgba(255, 255, 255, 85%) !important;
+    background-color: rgba(255, 255, 255, 85%)!important;
     color: rgba(192, 3, 22, 0.9) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-accept:hover,
 .btn-deny:hover {
-    background-color: rgba(255, 255, 255, 85%) !important;
+    background-color: rgba(255, 255, 255, 85%)!important;
     color: rgba(192, 3, 22, 0.9) !important;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .buttons-wrapper {
     display: flex;
-    justify-content: center;
-    /* căn giữa theo ngang */
-    gap: 20px;
-    /* khoảng cách giữa 2 nút */
-    margin-top: 20px;
-    /* khoảng cách trên với nội dung */
-}
-
-.btn{
-    transition: all 0.5s ease;
-}
-.btn:hover{
-    background-color: rgba(255, 255, 255, 85%) !important;
-    color: rgba(192, 3, 22, 0.9) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+    justify-content: center;  /* căn giữa theo ngang */
+    gap: 20px;                /* khoảng cách giữa 2 nút */
+    margin-top: 20px;         /* khoảng cách trên với nội dung */
+  }

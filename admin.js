@@ -63,21 +63,21 @@ function updateTablesFromLocalStorage() {
     socData.forEach(user => {
         if (user.floor === '0' && user.room === '0' || user.reasons === 'tenant') return;
         const roomId = `${user.floor}${user.room}`;
-        if (user.soc < 30 && user.soc !== null) warningMessages.push(`${roomId}: SoC vượt ngưỡng`);
-        if (user.soh === 0) warningMessages.push(`${roomId}: SoH vượt ngưỡng`);
-        if (user.temp > 60) warningMessages.push(`${roomId}: Temp vượt ngưỡng`);
+        if (user.soc < 30 && user.soc !== null) warningMessages.push(`${roomId}: SoC crossed the threshold`);
+        if (user.soh === 0) warningMessages.push(`${roomId}: SoH crossed the threshold`);
+        if (user.temp > 60) warningMessages.push(`${roomId}: Temp crossed the threshold`);
 
         let soctr = document.createElement('tr');
         soctr.innerHTML = `
             <td>${roomId}</td>
-            <td>${user.soc !== null ? user.soc + '%' : 'Chưa lắp hệ thống'}</td>
-            <td>${user.soc === null? 'Chưa lắp hệ thống': user.soc < 30? 'Yếu': 'Tốt'}</td>
+            <td>${user.soc !== null ? user.soc + '%' : 'The system has not been installed yet'}</td>
+            <td>${user.soc === null? 'The system has not been installed yet': user.soc < 30? 'Low': 'High'}</td>
             <td><a href="#" class="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 data-floorroom="${roomId}"
                 data-name="${user.name}"
                 data-email="${user.email}"
                 data-used="${user.used}"
-                data-phone="${user.phonenumber}">Chi tiết</a>
+                data-phone="${user.phonenumber}">Detail</a>
             </td>`;
         socContainer.appendChild(soctr);
     });
@@ -89,14 +89,14 @@ function updateTablesFromLocalStorage() {
         let sohtr = document.createElement('tr');
         sohtr.innerHTML = `
             <td>${roomId}</td>
-            <td>${user.soh !== null ? user.soh + '%' : 'Chưa lắp hệ thống' }</td>
-            <td>${user.soh === null? 'Chưa lắp hệ thống': user.soh < 30? 'Yếu': 'Tốt'}</td>
+            <td>${user.soh !== null ? user.soh + '%' : 'The system has not been installed yet' }</td>
+            <td>${user.soh === null? 'The system has not been installed yet': user.soh < 30? 'Low': 'High'}</td>
             <td><a href="#" class="btn-detail" data-bs-toggle="modal" data-bs-target="#exampleModal"
                 data-floorroom="${roomId}"
                 data-name="${user.name}"
                 data-email="${user.email}"
                 data-used="${user.used}"
-                data-phone="${user.phonenumber}">Chi tiết</a>
+                data-phone="${user.phonenumber}">Detail</a>
             </td>`;
         sohContainer.appendChild(sohtr);
     });
@@ -160,7 +160,7 @@ warningModalEl.addEventListener('show.bs.modal', function () {
 
 // Dọn dữ liệu null/undefined
 function cleanField(value) {
-    return (!value || value === 'undefined' || value === 'null') ? 'Chưa cập nhật' : value;
+    return (!value || value === 'undefined' || value === 'null') ? 'Not updated yet' : value;
 }
 
 // Cập nhật localStorage mỗi giây
